@@ -633,6 +633,27 @@ html.era-2012 .footer-copy::after {
   content: "　利特酒店版权所有　浙ICP备12001888号";
 }
 
+html.era-2012 .internal-gate {
+  padding: 18px 20px;
+  background: #1a140c;
+  color: #d4c4a0;
+  border-top: 3px double #8b6914;
+}
+
+html.era-2012 .internal-gate h2 {
+  color: #f7e7b0;
+}
+
+html.era-2012 .internal-gate .stay-form {
+  max-width: 360px;
+  background: #fff;
+  border: 1px solid #c4b089;
+}
+
+html.era-2012 .clock-actions .btn {
+  margin-right: 8px;
+}
+
 html.era-2012 .era-morse {
   display: none;
   margin-top: 8px;

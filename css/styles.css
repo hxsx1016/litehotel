@@ -814,6 +814,40 @@ address a {
   color: var(--gold-deep);
 }
 
+.internal-gate {
+  padding: 4.5rem 6vw;
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.internal-gate h2 {
+  color: var(--cream);
+  margin-bottom: 0.8rem;
+}
+
+.internal-gate .section-lead {
+  max-width: 36em;
+  margin-bottom: 1.6rem;
+  color: rgba(243, 238, 230, 0.72);
+}
+
+.internal-gate .stay-form {
+  max-width: 360px;
+  background: #1c1914;
+}
+
+.internal-gate .stay-form input {
+  background: #11100e;
+  border-color: rgba(243, 238, 230, 0.22);
+  color: var(--cream);
+}
+
+.clock-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .site-footer {
   background: var(--ink);
   color: var(--cream);

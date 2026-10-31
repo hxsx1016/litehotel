@@ -11,7 +11,7 @@ if (isEra2012) {
     const now = new Date();
     const week = ["日", "一", "二", "三", "四", "五", "六"];
     eraDate.textContent =
-      now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日　星期" + week[now.getDay()];
+      "2012年" + (now.getMonth() + 1) + "月" + now.getDate() + "日　星期" + week[now.getDay()];
   }
   const copy = document.querySelector(".footer-copy");
   if (copy) copy.textContent = "© 2012 利特酒店　欢迎您的光临";
@@ -139,7 +139,9 @@ nav.addEventListener("click", (event) => {
 });
 
 /* ---------- 预订表单 ---------- */
-const today = new Date().toISOString().split("T")[0];
+const today = isEra2012
+  ? "2012-10-12"
+  : new Date().toISOString().split("T")[0];
 form.checkin.min = today;
 form.checkout.min = today;
 
@@ -197,6 +199,70 @@ form.addEventListener("submit", (event) => {
   form.checkin.min = today;
   form.checkout.min = today;
 });
+
+/* ---------- 内部登录与档案时钟 ---------- */
+const FLAG_COPIED = "hotel-copied-archive";
+const FLAG_AUTH = "hotel-clock-auth";
+const gate = document.getElementById("internalGate");
+const loginBox = document.getElementById("internalLogin");
+const clockBox = document.getElementById("clockPanel");
+const loginForm = document.getElementById("internalLoginForm");
+const loginStatus = document.getElementById("internalStatus");
+
+const storageGet = (key) => {
+  try {
+    return sessionStorage.getItem(key);
+  } catch (e) {
+    return null;
+  }
+};
+
+const storageSet = (key, value) => {
+  try {
+    sessionStorage.setItem(key, value);
+  } catch (e) {}
+};
+
+const showInternalGate = () => {
+  const copied = storageGet(FLAG_COPIED) === "1";
+  const authed = storageGet(FLAG_AUTH) === "1";
+  if (!copied && !authed) return;
+
+  gate.hidden = false;
+  if (authed) {
+    loginBox.hidden = true;
+    clockBox.hidden = false;
+  } else {
+    loginBox.hidden = false;
+    clockBox.hidden = true;
+  }
+};
+
+if (loginForm) {
+  loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const uid = loginForm.uid.value.trim();
+    const pwd = loginForm.pwd.value.trim();
+    if (uid === "zhangxu" && pwd === "0401") {
+      storageSet(FLAG_AUTH, "1");
+      loginStatus.textContent = "核验通过。档案时钟已解锁。";
+      showInternalGate();
+      return;
+    }
+    loginStatus.textContent = "核验失败。";
+  });
+}
+
+if (clockBox) {
+  clockBox.addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-year]");
+    if (!btn) return;
+    const year = btn.getAttribute("data-year");
+    window.location.href = year === "2012" ? "index.html?year=2012" : "index.html?year=2026";
+  });
+}
+
+showInternalGate();
 
 /* ---------- 初始化 ---------- */
 renderPuzzle();
