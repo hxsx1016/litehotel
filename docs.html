@@ -68,6 +68,9 @@
     });
 
     modalYes.addEventListener("click", () => {
+      try {
+        sessionStorage.setItem("hotel-copied-archive", "1");
+      } catch (e) {}
       const link = document.createElement("a");
       link.href = "assets/old-archive.zip";
       link.download = "old-archive.zip";

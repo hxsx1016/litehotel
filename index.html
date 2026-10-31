@@ -4,7 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>
-    if (new Date().getFullYear() === 2012) document.documentElement.className = "era-2012";
+    (function () {
+      var year = new URLSearchParams(location.search).get("year");
+      var authed = false;
+      try {
+        authed = sessionStorage.getItem("hotel-clock-auth") === "1";
+        if (!authed) {
+          sessionStorage.removeItem("hotel-year");
+          year = "";
+        } else if (year === "now" || year === "2026") {
+          sessionStorage.removeItem("hotel-year");
+          year = "";
+        } else if (year) {
+          sessionStorage.setItem("hotel-year", year);
+        } else {
+          year = sessionStorage.getItem("hotel-year");
+        }
+      } catch (e) {}
+      if (year === "2012") document.documentElement.className = "era-2012";
+    })();
   </script>
   <title>利特酒店 · 青岚山</title>
   <meta name="description" content="利特酒店隐于浙江省青岚山南麓竹海。三十六间客房，一处温泉，一座山中厨房。听见风过竹叶，也听见自己。">
@@ -45,7 +63,7 @@
     <section class="hero">
       <div class="hero-media">
         <img
-          src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2000&q=80"
+          src="assets/photos/hero.jpg"
           alt="利特酒店夜色中的庭院与暖灯"
         >
         <div class="hero-veil"></div>
@@ -77,7 +95,7 @@
       </div>
       <figure class="story-photo">
         <img
-          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1800&q=80"
+          src="assets/photos/story-mountain.jpg"
           alt="青岚山晨雾中的山脊"
         >
         <figcaption>青岚山南麓 · 海拔 428 米 · 距省会约 90 分钟</figcaption>
@@ -95,7 +113,7 @@
       <article class="room featured">
         <div class="room-image">
           <img
-            src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1600&q=80"
+            src="assets/photos/room-villa.jpg"
             alt="利特别墅卧室，落地窗外是竹林"
           >
         </div>
@@ -119,7 +137,7 @@
         <article class="room">
           <div class="room-image">
             <img
-              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80"
+              src="assets/photos/room-suite.jpg"
               alt="山居套房，暖色灯光与木地板"
             >
           </div>
@@ -142,7 +160,7 @@
         <article class="room">
           <div class="room-image">
             <img
-              src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=80"
+              src="assets/photos/room-forest.jpg"
               alt="林间客房，简洁的床铺与自然光"
             >
           </div>
@@ -167,7 +185,7 @@
     <section class="dining" id="dining">
       <div class="dining-visual">
         <img
-          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=80"
+          src="assets/photos/dining.jpg"
           alt="山中厨房的晚宴摆盘"
         >
       </div>
@@ -209,7 +227,7 @@
       </div>
       <div class="wellness-visual">
         <img
-          src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1400&q=80"
+          src="assets/photos/onsen.jpg"
           alt="温泉石池与蒸汽"
         >
       </div>
@@ -223,22 +241,22 @@
       </div>
       <div class="moment-grid">
         <article>
-          <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=80" alt="春天山花">
+          <img src="assets/photos/season-spring.jpg" alt="春天，竹林里的春笋">
           <h3>春</h3>
           <p>笋与茶同时醒来。可以跟着厨师去后山挖笋，也可以什么都不做。</p>
         </article>
         <article>
-          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80" alt="夏日竹林">
+          <img src="assets/photos/season-summer.jpg" alt="夏日竹林与林间泳池">
           <h3>夏</h3>
           <p>竹海比城里低七八度。蝉声很密，泳池在林间，傍晚有山风。</p>
         </article>
         <article>
-          <img src="https://images.unsplash.com/photo-1507041957456-9c397ce39c97?auto=format&fit=crop&w=900&q=80" alt="秋日山林">
+          <img src="assets/photos/season-autumn.jpg" alt="秋日山路上的银杏与红枫">
           <h3>秋</h3>
           <p>枫与银杏把路铺金。适合带一本旧书，把走廊走得很慢。</p>
         </article>
         <article>
-          <img src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=900&q=80" alt="冬日雪景">
+          <img src="assets/photos/season-winter.jpg" alt="冬日雪中的温泉与白雾">
           <h3>冬</h3>
           <p>若逢小雪，温泉上会起白雾。壁炉通宵，粥在凌晨还热着。</p>
         </article>
@@ -248,7 +266,7 @@
     <section class="visit">
       <div class="visit-map">
         <img
-          src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=80"
+          src="assets/photos/arrive.jpg"
           alt="通往酒店的山路与云海"
         >
       </div>
@@ -321,6 +339,35 @@
         <button type="submit" class="btn btn-gold">发送预订意向</button>
         <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
+    </section>
+
+    <section class="internal-gate" id="internalGate" hidden>
+      <div class="internal-login" id="internalLogin">
+        <p class="eyebrow">Internal</p>
+        <h2>内部登录</h2>
+        <p class="section-lead">终端已从归档副本中唤醒。请核验操作员身份。</p>
+        <form class="stay-form" id="internalLoginForm" autocomplete="off">
+          <label>
+            用户 ID
+            <input type="text" name="uid" spellcheck="false">
+          </label>
+          <label>
+            密码
+            <input type="password" name="pwd">
+          </label>
+          <button type="submit" class="btn btn-dark">登录</button>
+          <p class="form-status" id="internalStatus" role="status"></p>
+        </form>
+      </div>
+      <div class="clock-panel" id="clockPanel" hidden>
+        <p class="eyebrow">Archive Clock</p>
+        <h2>档案时钟</h2>
+        <p class="section-lead">权限已确认。可切换站点呈现的年份。</p>
+        <div class="clock-actions">
+          <button class="btn btn-dark" type="button" data-year="2026">2026</button>
+          <button class="btn btn-gold" type="button" data-year="2012">2012</button>
+        </div>
+      </div>
     </section>
   </main>
 
